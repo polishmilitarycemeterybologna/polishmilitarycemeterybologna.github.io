@@ -41,6 +41,10 @@
             font-size:16px;
             line-height: 1.5;
         }
+        #btn3 #btn4 #btn5 #btn6 #btn7 #btn8{
+            height: 20px;
+            width: 20px;
+        }
     </style>
 </head>
 <body>
@@ -50,27 +54,32 @@
                 <a class="navbar-brand mb-0 h1 navbar-main-menu" href="index.html">Main Menu</a>
             </div>
             <div class="col-2">
-                <button type="button" class="btn btn-danger" id="btn-1">Previous model</button>
+                <button type="button" class="btn btn-warning" id="btn1">Previous model</button>
             </div>
             <div class="col-2">
                 <span class="navbar-model-info" id="navbar-model-info">Text about the model</span>
             </div>
             <div class="col-2">
-                <button type="button" class="btn btn-danger id=btn-2">Next model</button>
+                <button type="button" class="btn btn-warning" id="btn2">Next model</button>
             </div>
-            <div class="col-4">
+            <div class="col-4 justify-content-center text-center">
                 <div class="row">
-                    <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-danger" id="btn3">LEFT</button>
-                        <button type="button" class="btn btn-danger" id="btn4">MIDDLE</button>
-                        <button type="button" class="btn btn-danger" id="btn5">RIGHT</button>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-danger" id="btn6">LEFT</button>
-                        <button type="button" class="btn btn-danger" id="btn7">MIDDLE</button>
-                        <button type="button" class="btn btn-danger" id="btn8">RIGHT</button>
+                    <div class="col-5"></div>
+                    <div class="col-2">
+                        <div class="row">
+                            <div class="btn-group btn-group-sm" role="group">
+                                <button type="button" class="btn btn-warning" id="btn3"><img src="images/zoom-in.png" class="rounded" style="height: 16px; width: 16px;"></button>
+                                <button type="button" class="btn btn-warning" id="btn4"><img src="images/rotate-up.png" class="rounded" style="height: 16px; width: 16px;"></button>
+                                <button type="button" class="btn btn-warning" id="btn5"><img src="images/zoom-out.png" class="rounded" style="height: 16px; width: 16px;"></button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="btn-group btn-group-sm" role="group">
+                                <button type="button" class="btn btn-warning" id="btn6"><img src="images/rotate-right.png" class="rounded" style="height: 16px; width: 16px;"></button>
+                                <button type="button" class="btn btn-warning" id="btn7"><img src="images/rotate-down.png" class="rounded" style="height: 16px; width: 16px;"></button>
+                                <button type="button" class="btn btn-warning" id="btn8"><img src="images/rotate-left.png" class="rounded" style="height: 16px; width: 16px;"></button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -85,14 +94,20 @@
 <script>
     const modelViewer = document.getElementById('viewer');
     const models = ['models/model1.glb', 'models/model2.glb', 'models/model3.glb'];
+    const modelDescs = ['Model 1 Description', 'Model 2 Description', 'Model 3 Description'];
     let currentModelIndex = 0;
 
-    // Load the first model
-    modelViewer.src = models[currentModelIndex];
-
-    // Function to update the model
+    // Load the first model and update the model description
     function updateModel() {
         modelViewer.src = models[currentModelIndex];
+        document.getElementById('navbar-model-info').textContent = modelDescs[currentModelIndex];
+    }
+
+    updateModel();
+
+    // Function to simulate key press
+    function simulateKeyPress(key) {
+        document.dispatchEvent(new KeyboardEvent('keydown', { key: key }));
     }
 
     // Event listener for keydown events
@@ -103,6 +118,18 @@
         let radius = orbit.radius;
 
         switch(event.key) {
+            case 'w':
+                simulateKeyPress('ArrowUp');
+                break;
+            case 's':
+                simulateKeyPress('ArrowDown');
+                break;
+            case 'a':
+                simulateKeyPress('ArrowLeft');
+                break;
+            case 'd':
+                simulateKeyPress('ArrowRight');
+                break;
             case 'q':
                 radius *= 0.9;
                 break;
@@ -112,14 +139,25 @@
             case 'z':
                 currentModelIndex = (currentModelIndex > 0) ? currentModelIndex - 1 : models.length - 1;
                 updateModel();
-                return; // Exit early to avoid setting cameraOrbit
+                return;
             case 'c':
                 currentModelIndex = (currentModelIndex < models.length - 1) ? currentModelIndex + 1 : 0;
                 updateModel();
-                return; // Exit early to avoid setting cameraOrbit
+                return;
         }
 
         modelViewer.cameraOrbit = `${theta}deg ${phi}deg ${radius}m`;
     });
+
+    // Button event listeners to simulate key presses
+    document.getElementById('btn1').addEventListener('click', () => simulateKeyPress('z'));
+    document.getElementById('btn2').addEventListener('click', () => simulateKeyPress('c'));
+    document.getElementById('btn3').addEventListener('click', () => simulateKeyPress('q'));
+    document.getElementById('btn4').addEventListener('click', () => simulateKeyPress('w'));
+    document.getElementById('btn5').addEventListener('click', () => simulateKeyPress('e'));
+    document.getElementById('btn6').addEventListener('click', () => simulateKeyPress('a'));
+    document.getElementById('btn7').addEventListener('click', () => simulateKeyPress('s'));
+    document.getElementById('btn8').addEventListener('click', () => simulateKeyPress('d'));
+
 </script>
 </html>
