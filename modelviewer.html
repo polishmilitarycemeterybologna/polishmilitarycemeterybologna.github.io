@@ -45,7 +45,7 @@
         const theta = orbit.theta + deltaTheta;
         const phi = orbit.phi + deltaPhi;
         const radius = orbit.radius + deltaRadius;
-        modelViewer.setOrbit(theta, phi, radius);
+        modelViewer[_k].setOrbit(theta, phi, radius);
     }
 
     // Event listener for keydown events
