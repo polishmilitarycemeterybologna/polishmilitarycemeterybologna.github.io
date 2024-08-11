@@ -42,12 +42,9 @@
     // Event listener for keydown events
     document.addEventListener('keydown', (event) => {
         const orbit = modelViewer.getCameraOrbit();
-        let [theta, phi, radius] = orbit.split(' ');
-
-        // Convert to numbers
-        theta = parseFloat(theta);
-        phi = parseFloat(phi);
-        radius = parseFloat(radius);
+        let theta = orbit.theta.deg;
+        let phi = orbit.phi.deg;
+        let radius = orbit.radius;
 
         switch(event.key) {
             case 'w':
