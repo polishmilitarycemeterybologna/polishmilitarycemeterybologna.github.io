@@ -18,8 +18,8 @@
         model-viewer {
             width: 100%;
             height: 100%;
-            min-width: 800px;
-            min-height: 600px;
+            min-width: 100vw;
+            min-height: 100vw;
         }
     </style>
 </head>
@@ -41,34 +41,44 @@
 
     // Event listener for keydown events
     document.addEventListener('keydown', (event) => {
+        const orbit = modelViewer.getCameraOrbit();
+        let [theta, phi, radius] = orbit.split(' ');
+
+        // Convert to numbers
+        theta = parseFloat(theta);
+        phi = parseFloat(phi);
+        radius = parseFloat(radius);
+
         switch(event.key) {
             case 'w':
-                modelViewer.cameraOrbit = `${modelViewer.getCameraOrbit().theta + 10}deg auto auto`;
+                phi -= 10;
                 break;
             case 's':
-                modelViewer.cameraOrbit = `${modelViewer.getCameraOrbit().theta - 10}deg auto auto`;
+                phi += 10;
                 break;
             case 'a':
-                modelViewer.cameraOrbit = `auto ${modelViewer.getCameraOrbit().phi + 10}deg auto`;
+                theta -= 10;
                 break;
             case 'd':
-                modelViewer.cameraOrbit = `auto ${modelViewer.getCameraOrbit().phi - 10}deg auto`;
+                theta += 10;
                 break;
             case 'q':
-                modelViewer.zoom(0.9);
+                radius *= 0.9;
                 break;
             case 'e':
-                modelViewer.zoom(1.1);
+                radius *= 1.1;
                 break;
             case 'z':
                 currentModelIndex = (currentModelIndex > 0) ? currentModelIndex - 1 : models.length - 1;
                 updateModel();
-                break;
+                return; // Exit early to avoid setting cameraOrbit
             case 'c':
                 currentModelIndex = (currentModelIndex < models.length - 1) ? currentModelIndex + 1 : 0;
                 updateModel();
-                break;
+                return; // Exit early to avoid setting cameraOrbit
         }
+
+        modelViewer.cameraOrbit = `${theta}deg ${phi}deg ${radius}m`;
     });
 </script>
 </html>
