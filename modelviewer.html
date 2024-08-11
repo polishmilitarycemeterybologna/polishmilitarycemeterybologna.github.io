@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Model Viewer</title>
+    <script type="module" src="js/model-viewer.min.js"></script>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0f0f0;
+        }
+        model-viewer {
+            width: 100%;
+            height: 100%;
+            max-width: 800px;
+            max-height: 600px;
+        }
+    </style>
+</head>
+<body>
+    <model-viewer id="viewer" src="model1.glb" alt="A 3D model" auto-rotate camera-controls></model-viewer>
+</body>
+<script>
+    const modelViewer = document.getElementById('viewer');
+    const models = ['model1.glb', 'model2.glb', 'model3.glb'];
+    let currentModelIndex = 0;
+
+    // Load the first model
+    modelViewer.src = models[currentModelIndex];
+
+    // Function to update the model
+    function updateModel() {
+        modelViewer.src = models[currentModelIndex];
+    }
+
+    // Event listener for keydown events
+    document.addEventListener('keydown', (event) => {
+        switch(event.key) {
+            case 'w':
+                modelViewer.cameraOrbit = `${modelViewer.getCameraOrbit().theta + 10}deg auto auto`;
+                break;
+            case 's':
+                modelViewer.cameraOrbit = `${modelViewer.getCameraOrbit().theta - 10}deg auto auto`;
+                break;
+            case 'a':
+                modelViewer.cameraOrbit = `auto ${modelViewer.getCameraOrbit().phi + 10}deg auto`;
+                break;
+            case 'd':
+                modelViewer.cameraOrbit = `auto ${modelViewer.getCameraOrbit().phi - 10}deg auto`;
+                break;
+            case 'q':
+                modelViewer.zoom(0.9);
+                break;
+            case 'e':
+                modelViewer.zoom(1.1);
+                break;
+            case 'z':
+                currentModelIndex = (currentModelIndex > 0) ? currentModelIndex - 1 : models.length - 1;
+                updateModel();
+                break;
+            case 'c':
+                currentModelIndex = (currentModelIndex < models.length - 1) ? currentModelIndex + 1 : 0;
+                updateModel();
+                break;
+        }
+    });
+</script>
+</html>
