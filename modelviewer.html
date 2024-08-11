@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>3D Model Viewer</title>
-    <script type="module" src="js/model-viewer.min.js"></script>
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+    <script nomodule src="https://unpkg.com/@google/model-viewer/dist/model-viewer-legacy.js"></script>
     <style>
         body, html {
             height: 100%;
@@ -23,11 +24,11 @@
     </style>
 </head>
 <body>
-    <model-viewer id="viewer" src="model1.glb" alt="A 3D model" auto-rotate camera-controls></model-viewer>
+    <model-viewer id="viewer" src="models/model1.glb" alt="A 3D model" auto-rotate camera-controls></model-viewer>
 </body>
 <script>
     const modelViewer = document.getElementById('viewer');
-    const models = ['model1.glb', 'model2.glb', 'model3.glb'];
+    const models = ['models/model1.glb', 'models/model2.glb', 'models/model3.glb'];
     let currentModelIndex = 0;
 
     // Load the first model
