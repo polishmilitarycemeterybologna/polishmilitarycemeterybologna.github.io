@@ -46,6 +46,9 @@
         let phi = orbit.phi.deg;
         let radius = orbit.radius;
 
+        console.log(`Key pressed: ${event.key}`);
+        console.log(`Before adjustment: theta=${theta}, phi=${phi}, radius=${radius}`);
+
         switch(event.key) {
             case 'w':
                 phi -= 10;
@@ -68,13 +71,14 @@
             case 'z':
                 currentModelIndex = (currentModelIndex > 0) ? currentModelIndex - 1 : models.length - 1;
                 updateModel();
-                return; // Exit early to avoid setting cameraOrbit
+                return;
             case 'c':
                 currentModelIndex = (currentModelIndex < models.length - 1) ? currentModelIndex + 1 : 0;
                 updateModel();
-                return; // Exit early to avoid setting cameraOrbit
+                return;
         }
 
+        console.log(`After adjustment: theta=${theta}, phi=${phi}, radius=${radius}`);
         modelViewer.cameraOrbit = `${theta}deg ${phi}deg ${radius}m`;
     });
 </script>
