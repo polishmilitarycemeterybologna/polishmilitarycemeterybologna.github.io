@@ -41,32 +41,24 @@
 
     // Event listener for keydown events
     document.addEventListener('keydown', (event) => {
-        const orbit = modelViewer.getCameraOrbit();
-        const theta = orbit.theta.deg;   // Extracting the degrees for theta
-        const phi = orbit.phi.deg;       // Extracting the degrees for phi
-        const radius = orbit.radius;     // Radius is already in meters
-
-        console.log(`Key pressed: ${event.key}`);
-        console.log(`Before adjustment: theta=${theta}, phi=${phi}, radius=${radius}`);
-
         switch(event.key) {
             case 'w':
-                modelViewer.cameraOrbit = `${theta}deg ${phi - 10}deg ${radius}m`;
+                modelViewer.adjustOrbit(0, -10, 0);  // Rotate up (phi decrease)
                 break;
             case 's':
-                modelViewer.cameraOrbit = `${theta}deg ${phi + 10}deg ${radius}m`;
+                modelViewer.adjustOrbit(0, 10, 0);   // Rotate down (phi increase)
                 break;
             case 'a':
-                modelViewer.cameraOrbit = `${theta - 10}deg ${phi}deg ${radius}m`;
+                modelViewer.adjustOrbit(-10, 0, 0);  // Rotate left (theta decrease)
                 break;
             case 'd':
-                modelViewer.cameraOrbit = `${theta + 10}deg ${phi}deg ${radius}m`;
+                modelViewer.adjustOrbit(10, 0, 0);   // Rotate right (theta increase)
                 break;
             case 'q':
-                modelViewer.cameraOrbit = `${theta}deg ${phi}deg ${radius * 0.9}m`;
+                modelViewer.adjustOrbit(0, 0, -0.1); // Zoom in (radius decrease)
                 break;
             case 'e':
-                modelViewer.cameraOrbit = `${theta}deg ${phi}deg ${radius * 1.1}m`;
+                modelViewer.adjustOrbit(0, 0, 0.1);  // Zoom out (radius increase)
                 break;
             case 'z':
                 currentModelIndex = (currentModelIndex > 0) ? currentModelIndex - 1 : models.length - 1;
@@ -77,8 +69,6 @@
                 updateModel();
                 break;
         }
-
-        console.log(`After adjustment: theta=${theta}, phi=${phi}, radius=${radius}`);
     });
 </script>
 </html>
