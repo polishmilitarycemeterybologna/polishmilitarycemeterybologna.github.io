@@ -39,45 +39,31 @@
         modelViewer.src = models[currentModelIndex];
     }
 
-    // Function to adjust the camera orbit
-    function adjustCameraOrbit(deltaTheta, deltaPhi, deltaRadius) {
-        const orbit = modelViewer.getCameraOrbit();
-        const theta = orbit.theta + deltaTheta;
-        const phi = orbit.phi + deltaPhi;
-        const radius = orbit.radius + deltaRadius;
-        modelViewer[_k].setOrbit(theta, phi, radius);
-    }
-
     // Event listener for keydown events
     document.addEventListener('keydown', (event) => {
+        const orbit = modelViewer.getCameraOrbit();
+        let theta = orbit.theta.deg;
+        let phi = orbit.phi.deg;
+        let radius = orbit.radius;
+
         switch(event.key) {
-            case 'w':
-                adjustCameraOrbit(0, -0.1, 0);  // Rotate up
-                break;
-            case 's':
-                adjustCameraOrbit(0, 0.1, 0);   // Rotate down
-                break;
-            case 'a':
-                adjustCameraOrbit(-0.1, 0, 0);  // Rotate left
-                break;
-            case 'd':
-                adjustCameraOrbit(0.1, 0, 0);   // Rotate right
-                break;
             case 'q':
-                adjustCameraOrbit(0, 0, -10); // Zoom in
+                radius *= 0.9;
                 break;
             case 'e':
-                adjustCameraOrbit(0, 0, 10);  // Zoom out
+                radius *= 1.1;
                 break;
             case 'z':
                 currentModelIndex = (currentModelIndex > 0) ? currentModelIndex - 1 : models.length - 1;
                 updateModel();
-                break;
+                return; // Exit early to avoid setting cameraOrbit
             case 'c':
                 currentModelIndex = (currentModelIndex < models.length - 1) ? currentModelIndex + 1 : 0;
                 updateModel();
-                break;
+                return; // Exit early to avoid setting cameraOrbit
         }
+
+        modelViewer.cameraOrbit = `${theta}deg ${phi}deg ${radius}m`;
     });
 </script>
 </html>
