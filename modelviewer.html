@@ -86,15 +86,15 @@
         </div>
     </nav>
 
-    <model-viewer id="viewer" src="models/model1.glb" alt="A 3D model" camera-controls></model-viewer>
+    <model-viewer id="viewer" src="models/tombstone-catholic.glb" alt="A 3D model" camera-controls></model-viewer>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
 <script>
     const modelViewer = document.getElementById('viewer');
-    const models = ['models/model1.glb', 'models/model2.glb', 'models/model3.glb'];
-    const modelDescs = ['Model 1 Description', 'Model 2 Description', 'Model 3 Description'];
+    const models = ['models/tombstone-catholic.glb', 'models/tombstone-orthodox.glb', 'models/tombstone-jewish.glb', 'models/tombstone-buddhist.glb'];
+    const modelDescs = ['A Catholic tombstone', 'An Orthodox tombstone', 'A Jewish tombstone', 'A Buddhist tombstone'];
     let currentModelIndex = 0;
 
     // Load the first model and update the model description
